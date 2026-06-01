@@ -6,8 +6,8 @@ var objList = [];
 
 // 서버 설정 (app.set())
 
-// 미들웨어 설정 (app.ues())
-// http:localhost:3000/ajax_ex01.html로 public 폴더 내부 접근 가능하게 만드는 것
+// * 미들웨어 설정 (app.ues())
+// ^ http:localhost:3000/ajax_ex01.html로 public 폴더 내부 접근 가능하게 만드는 것
 app.use(express.static("public"));
 
 app.get('/data', (req, res) => {

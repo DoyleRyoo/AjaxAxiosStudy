@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>ajax 통신</h1>
+
+  <p>
+    User: <input type="text" id="user" value="길동"><br>
+    message: <input type="text" id="message" value="만사형통"><br>
+    <button id="reqBtn">요청</button>
+  </p>
+
+  <div id="resultBox">
+    <ul>
+      <li>user: <span></span></li>
+      <li>message: <span></span></li>
+    </ul>
+  </div>
+
+  <script>
+    const xhr = new XMLHttpRequest();
+    const resultList = document.querySelectorAll("#resultBox li");
+
+    // console.dir(resultList);
+
+    const reqBtn = document.querySelector("#reqBtn");
+
+    console.dir(xhr);
+
+    xhr.onreadystatechange = function (event) {
+      if(xhr.readyState == 4 && xhr.stat == 200) {
+        console.log("ajax 요청 완료");
+        console.log("status: ", xhr.status);
+        console.log("readyState: ", xhr.readyState);
+      }
+    };
+    
+
+    xhr.onload = function (e) {
+      let resObj = JSON.parse(e.target.responseText);
+
+      // console.log(resObj.user)
+
+      resultList[0].firstElementChild.innerHTML = resObj.user;
+      resultList[1].firstElementChild.innerHTML = resObj.message;
+    };
+
+    // * input의 데이터를 가져와 쿼리 스트링 값으로 사용하기
+    // user input, message input DOM 셀렉트하기
+    // input의 값을 가져와서 쿼리스트링으로 만들기
+
+    const userInput = document.querySelector("#user");
+    const messageInput = document.querySelector("#message");
+
+    reqBtn.onclick = function (e) {
+      xhr.open("get", `/data?user=${userInput.value}&message=${messageInput.value}`, true);
+
+      xhr.send();
+    }
+
+    console.log("비동기면 맨다한의 여기가 먼저 실행됌");
+  </script>
+</body>
+</html>

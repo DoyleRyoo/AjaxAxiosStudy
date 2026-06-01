@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>ajax 통신</h1>
+
+  <p>
+    User: <input type="text" id="user" value="길동"><br>
+    message: <input type="text" id="message" value="만사형통"><br>
+    <button id="reqBtn">요청</button>
+  </p>
+
+  <div id="resultBox">
+    <ul></ul>
+  </div>
+
+  <script>
+    function myGet(url, callback) {
+      const xhr = new XMLHttpRequest();
+      xhr.callback = callback;
+
+      xhr.onload = function (e) {
+        callback(e.target.resopnseText);
+      }
+
+      xhr.open('get', url, true);
+      xhr.send();
+    }
+
+    function loadHandler(target) {
+      const url = "https://jsonplaceholder.typicode.com/todos";
+
+      myGet(url, function (data) {
+        console.log(this.resopnseText);
+      });
+    }
+
+  </script>
+
+  <button onclick="loadHandler(this)">불러오기</button>
+
+  <div id="todo-list-area"></div>
+</body>
+</html>

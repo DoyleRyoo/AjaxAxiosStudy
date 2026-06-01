@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>ajax 통신</h1>
+
+  <script>
+    // console.log("여기는 브라우저 콘솔에 보여집니다.")
+    const xhr = new XMLHttpRequest();
+
+    console.dir(xhr);
+
+    xhr.onreadystatechange = function (event) {
+      if(xhr.readyState == 4 && xhr.stat == 200) {
+        console.log("ajax 요청 완료");
+        console.log("status: ", xhr.status);
+        console.log("readyState: ", xhr.readyState);
+      }
+
+    };
+
+    xhr.onload = function (e) {
+      // & console.log("ajax 로드 완료);
+      // console.log("xmr === ekg")
+
+      let resTxt = e.target.responseText;
+      let resObj = JSON.parse(resTxt);
+      console.log(typeof resObj);
+      console.log(resObj.user);
+    };
+
+    // 목적지 설정: method, url, [true/false]
+    xhr.open("get", "/data?user=ryoo&message=doyle", true);
+
+    // 실행 해
+    xhr.send();
+
+    console.log("비동기면 맨다한의 여기가 먼저 실행됌");
+  </script>
+</body>
+</html>

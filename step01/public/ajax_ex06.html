@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <table border="1" width="100%">
+    <thead>
+      <tr>
+        <th>user-id</th>
+        <th>id</th>
+        <th>title</th>
+        <th>completed</th>
+      </tr>
+    </thead>
+    <tbody id="todo-list-area"></tbody>
+  </table>
+
+  <script>
+    function loadHandler(target) {
+      const url = "https://jsonplaceholder.typicode.com/todos";
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((list) => {
+          // html 화면에 table 그리기
+          let html = "";
+
+          list.forEach(element => {
+            html += `
+              <tr><td>${element.userId}</td>
+              <td>${element.id}</td>
+              <td>${element.title}</td>
+              <td>${element.completed}</td></tr>
+            `;
+          });
+          html += "";
+          document.getElementById("todo-list-area").innerHTML = html;
+        });
+
+      // myGet(url, function (data) {
+      //   // html 화면에 table 그리기
+      //   let list = JSON.parse(this.responseText.trim());
+      //   let html = "";
+
+      //   list.forEach(element => {
+      //     html += `
+      //       <tr><td>${element.userId}</td>
+      //       <td>${element.id}</td>
+      //       <td>${element.title}</td>
+      //       <td>${element.completed}</td></tr>
+      //     `;
+      //   });
+      //   html += "";
+      //   document.getElementById("todo-list-area").innerHTML = html;
+      // });
+    }
+
+  </script>
+
+  <button onclick="loadHandler(this)">불러오기</button>
+</body>
+</html>

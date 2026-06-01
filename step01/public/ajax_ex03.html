@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>ajax 통신</h1>
+
+  <p>
+    User: <input type="text" id="user" value="길동"><br>
+    message: <input type="text" id="message" value="만사형통"><br>
+    <button id="reqBtn">요청</button>
+  </p>
+
+  <div id="resultBox">
+    <ul></ul>
+  </div>
+
+  <script>
+    // const xhr = new XMLHttpRequest();
+    const resultUl = document.querySelector("#resultBox ul");
+
+    const reqBtn = document.querySelector("#reqBtn");
+
+    // * console.dir(xhr);
+    
+    function loadList() {
+      const xhr = new XMLHttpRequest();
+
+      xhr.onload = function (e) {
+        let resList = JSON.parse(xhr.responseText);
+        let html = "";
+
+        // console.dir(resObj);
+
+        resList.forEach(element => {
+          html += `<li>user: ${element.user}  |  message: ${element.message}</li>`;
+        });
+        resultUl.innerHTML = html;
+      };
+
+      xhr.open("get", "/", true);
+      xhr.send();
+    }
+
+    loadList();
+
+    const userInput = document.querySelector("#user");
+    const messageInput = document.querySelector("#message");
+
+    reqBtn.onclick = function (e) {
+      const xhr = new XMLHttpRequest();
+
+      xhr.onload = function (e) {
+        loadList();
+      }
+
+      xhr.open("get", `/data?user=${userInput.value}&message=${messageInput.value}`, true);
+
+      xhr.send();
+    }
+
+    console.log("비동기면 맨다한의 여기가 먼저 실행됌");
+  </script>
+</body>
+</html>
